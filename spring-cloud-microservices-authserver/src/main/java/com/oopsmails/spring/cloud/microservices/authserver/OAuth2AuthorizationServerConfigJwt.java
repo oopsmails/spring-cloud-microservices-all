@@ -62,7 +62,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
                 .and()
                 .withClient("demops")
-                .secret("demo")
+                .secret("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("messagesCtrl", "read", "write")
                 .accessTokenValiditySeconds(3600)
@@ -72,45 +72,46 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
         // @formatter:on
     }
 
-//    @Bean
-//    @Primary
-//    public DefaultTokenServices tokenServices() {
-//        final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-//        defaultTokenServices.setTokenStore(tokenStore());
-//        defaultTokenServices.setSupportRefreshToken(true);
-//        return defaultTokenServices;
-//    }
+//	@Bean
+//	@Primary
+//	public DefaultTokenServices tokenServices() {
+//		final DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+//		defaultTokenServices.setTokenStore(tokenStore());
+//		defaultTokenServices.setSupportRefreshToken(true);
+//		return defaultTokenServices;
+//	}
 
     @Override
     public void configure(final AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager);
-//        final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-//        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
-//        endpoints.tokenStore(tokenStore())
-//                .tokenEnhancer(tokenEnhancerChain)
-//                .authenticationManager(authenticationManager);
+//		final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+//		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+//		endpoints.tokenStore(tokenStore())
+//			.tokenEnhancer(tokenEnhancerChain)
+//			.authenticationManager(authenticationManager);
     }
-
-    // @formatter:off
-//    @Bean
-//    public TokenStore tokenStore() {
+//
+//	// @formatter:off
+//	@Bean
+//	public TokenStore tokenStore() {
 ////        return new JdbcTokenStore(dataSource);
 ////        return new InMemoryTokenStore();
-//        return new JwtTokenStore(accessTokenConverter());
-//    }
+//		return new JwtTokenStore(accessTokenConverter());
+//	}
+//	// @formatter:on
 //
-//    @Bean
-//    public JwtAccessTokenConverter accessTokenConverter() {
-//        final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-//        // converter.setSigningKey("123");
-//        final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("mytest.jks"), "mypass".toCharArray());
-//        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("mytest"));
-//        return converter;
-//    }
+//	@Bean
+//	public JwtAccessTokenConverter accessTokenConverter() {
+//		final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//		// converter.setSigningKey("123");
+//		final KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("mytest.jks"), "mypass".toCharArray());
+//		converter.setKeyPair(keyStoreKeyFactory.getKeyPair("mytest"));
+//		return converter;
+//	}
 //
-//    @Bean
-//    public TokenEnhancer tokenEnhancer() {
-//        return new CustomTokenEnhancer();
-//    }
-    // @formatter:on
+//	@Bean
+//	public TokenEnhancer tokenEnhancer() {
+//		return new CustomTokenEnhancer();
+//	}
+
 }

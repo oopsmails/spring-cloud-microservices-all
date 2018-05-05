@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 //@EnableAuthorizationServer // Moved to OAuth2AuthorizationServerConfigJwt
@@ -30,7 +30,7 @@ public class SpringCloudMicroservicesAuthApplication {
     }
 
     @Configuration
-    static class MvcConfig extends WebMvcConfigurerAdapter {
+    static class MvcConfig implements WebMvcConfigurer {
 
         @Override
         public void addViewControllers(ViewControllerRegistry registry) {

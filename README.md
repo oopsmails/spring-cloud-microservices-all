@@ -59,6 +59,82 @@ http://localhost:9999/organization/1/with-departments-and-employees
 ================================================
 
 
+--------------
+
+curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:7777/oauth/token
+
+curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
+
+
+============================
+auth-server: setup and working fine, 20180504
+
+
+==> Problem: java.lang.IllegalArgumentException: There is no PasswordEncoder mapped for the id "null"
+
+Solution: resolved by adding 
+@Bean
+public BCryptPasswordEncoder passwordEncoder()
+
+==> Problem:
+2018-05-04 13:45:46.835  WARN 16892 --- [nio-7777-exec-1] o.s.s.c.bcrypt.BCryptPasswordEncoder     : Encoded password does not look like BCrypt
+
+Solution: resolved by encoding password in WebSecurityConfig:globalUserDetails(final AuthenticationManagerBuilder auth)
+
+Note: both "secret" and user "password" should be BCrypt-ed
+$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i
+
+==> NO /uaa below for 7777, because calling from inside
+curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:7777/oauth/token
+
+
+==> returning 401: Unauthorized,
+curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
+
+security.oauth2.resource.token-info-uri: http://localhost:9999/uaa/oauth/check_token
+is from outside.
+
+Solution: in log, seeing mapping "/uaa/oauth/check_token" to "/oauth/check_token"
+
+gateway-service.yml
+- RewritePath=/uaa/(?<path>.*), /$\{path}
+
+proxy-service.yml
+- stripPrefix: true <----------- this will omit /oath from Zuul
+
+
+==> 401 continue ...
+
+debug: BasicAuthenticationFilter, 
+protected void doFilterInternal()
+::> String header = request.getHeader("Authorization");
+
+Authorization header is filtered out by Zuul server,
+
+Solution: proxy-service.yml
+
+sensitiveHeaders: Cookie,Set-Cookie
+
+routes:
+    auth:
+      path: /uaa/**
+      sensitiveHeaders: Cookie,Set-Cookie <-------- adding this 
+      serviceId: auth-server
+      stripPrefix: true
+
+--
+
+sensitiveHeaders: Cookie,Set-Cookie,Authorization
+This is default and is a black list, so, overwrite it to allow "Authorization" passed to auth-server!
+
+
+--> Very helpful thread, thanks!
+
+https://github.com/spring-projects/spring-boot/issues/12346
+
+https://github.com/Smedzlatko/spring-boot2-oauth2
+
+
 ================================================
 
 
