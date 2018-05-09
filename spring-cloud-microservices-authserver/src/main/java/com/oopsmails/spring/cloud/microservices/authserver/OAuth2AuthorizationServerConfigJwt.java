@@ -1,9 +1,7 @@
 package com.oopsmails.spring.cloud.microservices.authserver;
 
-import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerTokenServicesConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -22,6 +20,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
+import java.util.Arrays;
+
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfigurerAdapter {
@@ -32,7 +32,6 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-//		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
         oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("permitAll()");
     }
 

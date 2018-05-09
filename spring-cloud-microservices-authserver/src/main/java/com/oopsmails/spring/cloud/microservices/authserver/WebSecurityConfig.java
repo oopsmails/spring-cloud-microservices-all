@@ -19,12 +19,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
         // @formatter:off
         auth.inMemoryAuthentication()
-                .withUser("user").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN").and()
+            .withUser("user").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN").and()
 //			.withUser("user").password("password").roles("ADMIN").and()
-                .withUser("john").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("USER").and()
-                .withUser("tom").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN").and()
-                .withUser("user1").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("USER").and()
-                .withUser("admin").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN");
+            .withUser("john").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("USER").and()
+            .withUser("tom").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN").and()
+            .withUser("user1").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("USER").and()
+            .withUser("admin").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN");
     }// @formatter:on
 
     @Override
@@ -42,17 +42,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         // @formatter:off
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/oauth/token/revokeById/**").permitAll()
-                .antMatchers("/tokens/**").permitAll()
-                .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access").permitAll() // added
-                .anyRequest().authenticated()
+            .antMatchers("/login").permitAll()
+            .antMatchers("/oauth/token/revokeById/**").permitAll()
+            .antMatchers("/tokens/**").permitAll()
+            .antMatchers("/", "/login", "/oauth/authorize", "/oauth/confirm_access").permitAll() // added
+            .anyRequest().authenticated()
 
-                .and()
-                .formLogin().loginPage("/login").permitAll()
+            .and()
+            .formLogin().loginPage("/login").permitAll()
 
-                .and()
-                .csrf().disable();
+            .and()
+            .csrf().disable();
         // @formatter:on
     }
 

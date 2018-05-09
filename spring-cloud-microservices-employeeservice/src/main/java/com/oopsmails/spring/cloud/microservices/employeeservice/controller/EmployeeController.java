@@ -7,13 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
@@ -28,11 +25,11 @@ public class EmployeeController {
         return repository.add(employee);
     }
 
-    @GetMapping("/employee/{id}") // add for testing
-    public Employee findByIdTest(@PathVariable("id") Long id) {
-        LOGGER.info("Employee find: id={}", id);
-        return repository.findById(id);
-    }
+//    @GetMapping("/employee/{id}") // add for testing
+//    public Employee findByIdTest(@PathVariable("id") Long id) {
+//        LOGGER.info("Employee find: id={}", id);
+//        return repository.findById(id);
+//    }
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable("id") Long id) {
@@ -41,7 +38,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/")
-//	@PreAuthorize("#oauth2.hasScope('read')")
+	@PreAuthorize("#oauth2.hasScope('read')")
     public List<Employee> findAll() {
         LOGGER.info("Employee find");
         return repository.findAll();

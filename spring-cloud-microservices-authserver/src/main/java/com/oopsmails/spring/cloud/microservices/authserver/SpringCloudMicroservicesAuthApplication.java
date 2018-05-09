@@ -13,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-//@EnableAuthorizationServer // Moved to OAuth2AuthorizationServerConfigJwt
 @EnableEurekaClient
 @RestController
 @SessionAttributes("authorizationRequest")
