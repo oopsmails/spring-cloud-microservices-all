@@ -4,3 +4,31 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+
+#security.oauth2.resource.token-info-uri: http://localhost:9999/uaa/oauth/check_token
+#security.oauth2.client.client-id: demops
+#security.oauth2.client.client-secret: password
+#
+#spring.jackson.date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+
+
+#ssoServiceUrl: http://localhost:7777
+#
+#security:
+#  oauth2:
+#    client:
+#      client-id: demops
+#      client-secret: demo
+#      access-token-uri: ${ssoServiceUrl}/oauth/token
+#      user-authorization-uri: ${ssoServiceUrl}/oauth/authorize
+#    resource:
+#      jwt:
+#        key-uri: ${ssoServiceUrl}/oauth/token_key
+#        key-value: holder
+#      user-info-uri: ${ssoServiceUrl}/userinfo
+#
+#spring:
+#  jackson:
+#    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+
+

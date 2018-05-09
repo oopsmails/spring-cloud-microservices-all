@@ -10,19 +10,3 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
 
-zuul:
-  routes:
-    auth:
-      path: /uaa/**
-      sensitiveHeaders: Cookie,Set-Cookie
-      serviceId: auth-server
-      stripPrefix: true
-    department:
-      path: /department/**
-      serviceId: department-service
-    employee:
-      path: /employee/**
-      serviceId: employee-service
-    organization:
-      path: /organization/**
-      serviceId: organization-service

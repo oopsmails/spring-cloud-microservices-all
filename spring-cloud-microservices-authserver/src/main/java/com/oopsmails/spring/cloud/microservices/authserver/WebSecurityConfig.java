@@ -21,10 +21,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("user").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN").and()
 //			.withUser("user").password("password").roles("ADMIN").and()
-                .withUser("john").password("123").roles("USER").and()
-                .withUser("tom").password("111").roles("ADMIN").and()
-                .withUser("user1").password("pass").roles("USER").and()
-                .withUser("admin").password("nimda").roles("ADMIN");
+                .withUser("john").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("USER").and()
+                .withUser("tom").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN").and()
+                .withUser("user1").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("USER").and()
+                .withUser("admin").password("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i").roles("ADMIN");
     }// @formatter:on
 
     @Override

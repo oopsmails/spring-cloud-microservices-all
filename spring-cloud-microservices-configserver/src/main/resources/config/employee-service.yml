@@ -5,7 +5,26 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-      
+
 logging:
-  pattern: 
+  pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+#ssoServiceUrl: http://localhost:9999/uaa
+#
+#security:
+#  oauth2:
+#    client:
+#      client-id: demops
+#      client-secret: demo
+#      access-token-uri: ${ssoServiceUrl}/oauth/token
+#      user-authorization-uri: ${ssoServiceUrl}/oauth/authorize
+#    resource:
+#      jwt:
+#        key-uri: ${ssoServiceUrl}/oauth/token_key
+#      user-info-uri: ${ssoServiceUrl}/userinfo
+#
+#spring:
+#  jackson:
+#    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+

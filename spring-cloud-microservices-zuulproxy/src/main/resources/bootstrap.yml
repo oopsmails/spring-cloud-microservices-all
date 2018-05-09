@@ -11,3 +11,55 @@ zuul:
   add-host-header: true
   add-proxy-headers: true
   ignored-services: "*"
+
+zuul:
+  routes:
+    auth:
+      path: /uaa/**
+      sensitiveHeaders: Cookie,Set-Cookie
+      serviceId: auth-server
+      stripPrefix: true
+    department:
+      path: /department/**
+      serviceId: department-service
+    employee:
+      path: /employee/**
+      sensitiveHeaders: Cookie,Set-Cookie
+      serviceId: employee-service
+      stripPrefix: false
+    organization:
+      path: /organization/**
+      serviceId: organization-service
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+hystrix:
+    command:
+        default:
+            execution:
+                timeout:
+                    enabled: false
+
+
+#ssoServiceUrl: http://localhost:9999/uaa
+#
+#security:
+#  oauth2:
+#    client:
+#      client-id: demops
+#      client-secret: demo
+#      access-token-uri: ${ssoServiceUrl}/oauth/token
+#      user-authorization-uri: ${ssoServiceUrl}/oauth/authorize
+#    resource:
+#      jwt:
+#        key-uri: ${ssoServiceUrl}/oauth/token_key
+#        key-value: holder
+#      user-info-uri: ${ssoServiceUrl}/userinfo
+#
+#proxy:
+#  auth:
+#    routes:
+#      employee: oauth2
+
+
