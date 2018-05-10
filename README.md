@@ -249,7 +249,99 @@ public Optional<String> getCurrentUserId() {
 
 
 
+================================================
 
+=====> 20180509:
+
+==> Fix Swagger for Employee Service,
+
+--> EmployeeController:
+
+@RestController
+//@RequestMapping("/employee-api") <---- diff here not needed
+public class EmployeeController
+
+--> OAuth2ResourceServerConfigJwt: differ swagger path "/v2/**" (which is no auth needed) and real api "/employee-api/**"
+
+@Override
+public void configure(final HttpSecurity http) throws Exception {
+	// @formatter:off
+	http.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) //SessionCreationPolicy.STATELESS
+		.and()
+		.authorizeRequests()
+
+		.antMatchers(HttpMethod.GET, "/v2/**") <------------------------ make swagger permitAll
+		.permitAll()
+
+		.antMatchers(HttpMethod.GET, "/**")
+		.access("#oauth2.hasScope('read')")
+
+		.antMatchers(HttpMethod.POST, "/employee-api/**")
+		.access("#oauth2.hasScope('write')")
+
+		.antMatchers("/abc")
+		.hasRole("ADMIN")
+	;
+	// @formatter:on
+}
+
+--> 
+
+
+zuul:
+  routes:
+    auth:
+      path: /uaa/**
+      sensitiveHeaders: Cookie,Set-Cookie
+      serviceId: auth-server
+      stripPrefix: true
+    department:
+      path: /department/**
+      serviceId: department-service
+    employee:
+      path: /employee/**
+      sensitiveHeaders: Cookie,Set-Cookie
+      serviceId: employee-service
+      stripPrefix: true <---------------------- make /employee/** is only for zuul
+    organization:
+      path: /organization/**
+      serviceId: organization-service
+
+----------------------
+
+--> ProxyApi, filter out auth-server from swagger!
+
+
+
+-------------------------------
+http://localhost:9999/uaa/login
+
+
+http://localhost:9999/uaa/oauth/authorize
+
+
+http://localhost:9999/uaa/oauth/authorize?response_type=token&client_id=demops&state=B4u93Ap1tWyMe9xS1rbarNI8f3SSZ9vdjAEFUfSo&redirect_uri=http://localhost:4203/&scope=read write
+
+
+
+
+================================================
+
+================================================
+
+
+================================================
+
+================================================
+
+
+================================================
+
+================================================
+
+
+================================================
 
 ================================================
 

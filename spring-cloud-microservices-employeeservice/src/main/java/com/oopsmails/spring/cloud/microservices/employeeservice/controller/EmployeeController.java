@@ -10,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/employee")
+//@RequestMapping("/employee-api")
 public class EmployeeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
@@ -38,7 +38,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/")
-	@PreAuthorize("#oauth2.hasScope('read')")
+    @PreAuthorize("#oauth2.hasScope('read')")
     public List<Employee> findAll() {
         LOGGER.info("Employee find");
         return repository.findAll();

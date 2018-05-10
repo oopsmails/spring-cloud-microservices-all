@@ -25,7 +25,7 @@ public class SpringCloudMicroservicesEmployeeServiceApplication {
     }
 
     @Bean
-    public Docket swaggerPersonApi10() {
+    public Docket swaggerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.oopsmails.spring.cloud.microservices.employeeservice.controller"))

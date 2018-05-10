@@ -39,6 +39,9 @@ public class OAuth2ResourceServerConfigJwt extends ResourceServerConfigurerAdapt
                 .and()
                 .authorizeRequests()
 
+                .antMatchers(HttpMethod.GET, "/employee/v2/**")
+                .permitAll()
+
                 .antMatchers(HttpMethod.GET, "/employee/**")
                 .access("#oauth2.hasScope('read')")
 

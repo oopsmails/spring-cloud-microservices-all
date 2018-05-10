@@ -4,3 +4,23 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+
+zuul:
+  routes:
+    auth:
+      path: /uaa/**
+      sensitiveHeaders:
+      serviceId: auth-server
+      stripPrefix: true
+    department:
+      path: /department/**
+      serviceId: department-service
+    employee:
+      path: /employee/**
+      sensitiveHeaders:
+      serviceId: employee-service
+      stripPrefix: true
+    organization:
+      path: /organization/**
+      serviceId: organization-service
+

@@ -1,5 +1,6 @@
 package com.oopsmails.spring.cloud.microservices.authserver;
 
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-import java.util.Arrays;
-
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfigurerAdapter {
@@ -32,7 +31,10 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("permitAll()");
+        oauthServer
+                .tokenKeyAccess("permitAll()")
+                .checkTokenAccess("permitAll()")
+        ;
     }
 
     @Override
@@ -74,7 +76,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .and()
                 .withClient("demops")
                 .secret("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i")
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                .authorizedGrantTypes("implicit", "password", "authorization_code", "refresh_token")
                 .scopes("messagesCtrl", "read", "write")
                 .accessTokenValiditySeconds(3600)
                 // 1 hour
