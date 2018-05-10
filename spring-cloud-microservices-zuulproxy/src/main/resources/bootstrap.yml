@@ -11,7 +11,7 @@ zuul:
       path: /uaa/**
       sensitiveHeaders:
       serviceId: auth-server
-      stripPrefix: true
+      stripPrefix: false
     department:
       path: /department/**
       serviceId: department-service
@@ -23,4 +23,20 @@ zuul:
     organization:
       path: /organization/**
       serviceId: organization-service
+
+    api:
+      path: /api/**
+      service-id: resource
+      sensitiveHeaders:
+      strip-prefix: false
+#    uaa:
+#      path: /uaa/**
+#      service-id: uaa
+#      sensitiveHeaders:
+#      strip-prefix: false
+    client:
+      path: /client/**
+      service-id: client
+      sensitiveHeaders:
+      strip-prefix: false
 

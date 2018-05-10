@@ -1,6 +1,6 @@
 server:
   port: 7777
-  context-path: /uaa
+#  context-path: /uaa
 
 eureka:
   client:
