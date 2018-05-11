@@ -324,6 +324,53 @@ http://localhost:9999/uaa/oauth/authorize
 http://localhost:9999/uaa/oauth/authorize?response_type=token&client_id=demops&state=B4u93Ap1tWyMe9xS1rbarNI8f3SSZ9vdjAEFUfSo&redirect_uri=http://localhost:4203/&scope=read write
 
 
+===============================================
+
+20180510:
+
+
+==> backend: intellij
+C:\Github\spring-cloud-microservices-all\
+
+Start:
+
+All Apps,
+
+
+
+C:\Github\springboot-configs\spring-cloud-microservices\
+
+Start:
+
+
+SpringCloudMicroservicesResourceApplication
+SpringCloudMicroservicesClientApplication
+
+
+
+==> frontend: vs code
+
+angular-4203-cloud-implicit     
+angular-4204-cloud-password     
+angular-4205-cloudAll-implicit     
+angular-4206-cloudAll-password  
+
+
+C:\Temp\tttt\spring-cloud-microservices-all-oauth-ui-implicit
+C:\Temp\tttt\spring-cloud-microservices-all-oauth-ui-password
+
+C:\Temp\tttt\spring-cloud-oauth-ui-implicit
+C:\Temp\tttt\spring-cloud-oauth-ui-password
+
+
+==> Next: try
+
+C:\Github\springboot-configs\spring-cloud-microservices\
+SpringCloudMicroservicesClientApplication
+
+@EnableOAuth2Sso
+@RibbonClient(name = "resource")
+
 
 
 ================================================
