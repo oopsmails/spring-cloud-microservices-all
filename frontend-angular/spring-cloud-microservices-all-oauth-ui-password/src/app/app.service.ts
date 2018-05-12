@@ -26,7 +26,7 @@ export class AppService {
 
     const headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa('demops:password')
+      'Authorization': 'Basic ' + btoa('demops:my_secret')
     });
 
     console.log(params.toString());

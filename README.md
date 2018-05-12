@@ -375,7 +375,71 @@ SpringCloudMicroservicesClientApplication
 
 ================================================
 
+<br><a href="http://localhost:8888/">ConfigServer:8888/</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<br><a href="http://localhost:8761/">Eureka:8761/</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<br><a href="http://localhost:9999/">Zuul:9999/</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<br><a href="http://localhost:18080/">localhost:18080(Organization)</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<br><a href="http://localhost:18082/">localhost:18082(Department)</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<br><a href="http://localhost:18084/">localhost:18084(Employee)</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+<br>
+<br>
+
+<br><a href="http://localhost:4200/">angular-4200</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://localhost:4201/">angular-4201</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://localhost:4202/">angular-4202</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://localhost:4203/">angular-4203-cloud-implicit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://localhost:4204/">angular-4204-cloud-password</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://localhost:4205/">angular-4205-cloudAll-implicit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="http://localhost:4206/">angular-4206-cloudAll-password</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+
 ================================================
+
+==> Oauth2
+
+
+Note: Previously, it was recommended that browser-based apps use the "Implicit" flow, which returns an access token 
+immediately and does not have a token exchange step. In the time since the spec was originally written, the industry 
+best practice has changed to recommend that the authorization code flow be used without the client secret. This 
+provides more opportunities to create a secure flow, such as using the state parameter. 
+
+----> Authorization Code for apps running on a web server, browser-based and mobile apps
+
+1. Open your browser and to visit the authorization endpoint
+http://localhost:9999/uaa/oauth/authorize?response_type=code&client_id=authorizationCodeClient&redirect_uri=http://localhost:4205/&scope=messagesCtrl&state=1234zyx
+ok, http://localhost:9999/uaa/oauth/authorize?response_type=code&client_id=authorizationCodeClient&redirect_uri=http://localhost:4205/
+
+OAuth2AuthorizationServerConfigJwt, if .autoApprove(true), then not redirected and promoted to manually approve any scopes.
+
+2. After the login process (login: user password: password), you will be redirected to http://example.com/?code=CODE <-- this is the code that you should use in the next request
+http://localhost:4205/?code=yusIXE
+
+3. now you get the token
+curl -X POST --user 'authorizationCodeClient:my_secret' -d 'grant_type=authorization_code&code=rueRhK&redirect_uri=http://localhost:4205/' http://localhost:9999/uaa/oauth/token
+
+
+----> Password for logging in with a username and password
+
+curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
+
+curl -X POST --user 'demops' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
+
+----> Client credentials for application access
+In some cases, applications may need an access token to act on behalf of themselves rather than a user. For example, 
+the service may provide a way for the application to update their own information such as their website URL or icon, 
+or they may wish to get statistics about the users of the app. In this case, applications need a way to get an access 
+token for their own account, outside the context of any specific user. OAuth provides the client_credentials grant 
+type for this purpose.
+
+curl -X POST --user 'clientCredentialsClient:my_secret' -d 'grant_type=client_credentials' http://localhost:9999/uaa/oauth/token
+
+
+----> Implicit was previously recommended for clients without a secret, but has been superseded by using the 
+Authorization Code grant with no secret.
+
+
+
 
 
 ================================================

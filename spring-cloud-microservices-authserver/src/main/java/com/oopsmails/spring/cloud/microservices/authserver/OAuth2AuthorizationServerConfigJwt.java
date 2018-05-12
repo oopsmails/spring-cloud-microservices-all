@@ -49,7 +49,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
                 .and()
                 .withClient("fooClientIdPassword")
-                .secret("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i")
+                .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("foo", "read", "write")
                 .accessTokenValiditySeconds(3600)
@@ -59,7 +59,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
                 .and()
                 .withClient("barClientIdPassword")
-                .secret("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i")
+                .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .scopes("bar", "read", "write")
                 .accessTokenValiditySeconds(3600)
@@ -74,8 +74,22 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .accessTokenValiditySeconds(3600)
 
                 .and()
+                .withClient("authorizationCodeClient")
+                .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
+                .authorizedGrantTypes("authorization_code")
+                .scopes("messagesCtrl", "read", "write")
+                .autoApprove(true) // autoApprove is set to true so that we’re not redirected and promoted to manually approve any scopes.
+
+                .and()
+                .withClient("clientCredentialsClient")
+                .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
+                .authorizedGrantTypes("client_credentials")
+                .scopes("messagesCtrl", "read", "write")
+                .autoApprove(true)
+
+                .and()
                 .withClient("demops")
-                .secret("$2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i")
+                .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
                 .authorizedGrantTypes("implicit", "password", "authorization_code", "refresh_token")
                 .scopes("messagesCtrl", "read", "write")
                 .accessTokenValiditySeconds(3600)
