@@ -10,7 +10,7 @@
         <version>2.0.0.RELEASE</version>
     </parent>
 
-    <groupId>com.oopsmails.spring.cloud.microservices.configserver</groupId>
+    <groupId>com.oopsmails.spring.cloud.microservicesoauth2</groupId>
     <artifactId>spring-cloud-microservices-configserver</artifactId>
     <version>1.0-SNAPSHOT</version>
 
