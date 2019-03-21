@@ -92,7 +92,8 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
                 .authorizedGrantTypes("implicit", "password", "authorization_code", "refresh_token")
                 .scopes("messagesCtrl", "read", "write")
-                .accessTokenValiditySeconds(3600)
+                .autoApprove(true)
+                .accessTokenValiditySeconds(7200)
                 // 1 hour
                 .refreshTokenValiditySeconds(2592000)
         ;

@@ -444,6 +444,43 @@ Authorization Code grant with no secret.
 
 ================================================
 
+20190320: Springboot config server, /encrypt endpoint
+
+**Make sure correct version of JCl is used when generating jks**
+
+C:\Program Files\Java\jdk1.8.0_121\jre\lib\security
+
+local_policy.jar
+US_export_policy.jar
+
+**Use following to generate jks file**
+
+For asymmetric encryption the value of encrypt.key should be a PEM-encoded string value or we can configure our custom keystore to use. Following is a sample to generate a keystore.
+
+-- SET PATH=%PATH%;C:\Program Files\Java\jdk1.8.0_121\bin
+-- JAVA_HOME "not working" in Windows 10, java -version, showing java9, not java version "1.8.0_121"
+Need to go to "Environment Variables ...", set JAVA_HOME, and then in "Path", move the entry "%JAVA_HOME%\BIN" to the top!
+Now, cmd, java -version, will show "1.8.0_121"
+
+Otherwise, will get "unable to initialize due to invalid secret key", "java.security.invalidkeyexception: illegal key size"
+
+keytool -genkeypair -alias oopsmails-config-server-key -keyalg RSA -dname "CN=Oopsmails Config Server,OU=OopsmailsSpring Cloud,O=Oopsmails" -keypass oopsmails-keypass -keystore oopsmails-config-server.jks -storepass oopsmails-storepass
+
+**Copy jks file to source folder, configure in bootstrap.yml**
+
+curl -X POST --data-urlencode testbody http://localhost:8888/encrypt
+
+curl -X POST \
+  http://localhost:8888/decrypt \
+  --d 'AQB5O3qJFaQqzKb/pRbVDgdG03QNOsCFtV7OFc/hDSekbS42ubPlbVR7gAG5ycTQL7tA3oIAn+1Pdd/stp0YhIF9YjzcnVa21mLqRa0fO9mQ/oAM9l2lKNzIX6xW+wMtYC/faI0md8FBVqfO8XDfAFnKr99ZVXifVQqsQ62XIgFgBePQOk2KcuG8hQ7m4PZanUYixYv3CuKD/fleoqalF9k+IzDBBaQuO4tD4lAtM1OiRgTY1l25CI6/0gpRLRepmPpdUG0ri6CalKyCxSIpjFC9d/5a8eSChrOKSjWkIJZqh43X7xBXdKs5no1ocAxiQMrMmTf0GZ7r2UW/33nIWWRM1Pw1w+Q2lJiRlSSFAY5eQsT9+O1zrZ1ZCG+vceVmiuw='
+
+curl -X POST \
+  http://localhost:8888/decrypt \
+  --data-urlencode 'AQB5O3qJFaQqzKb/pRbVDgdG03QNOsCFtV7OFc/hDSekbS42ubPlbVR7gAG5ycTQL7tA3oIAn+1Pdd/stp0YhIF9YjzcnVa21mLqRa0fO9mQ/oAM9l2lKNzIX6xW+wMtYC/faI0md8FBVqfO8XDfAFnKr99ZVXifVQqsQ62XIgFgBePQOk2KcuG8hQ7m4PZanUYixYv3CuKD/fleoqalF9k+IzDBBaQuO4tD4lAtM1OiRgTY1l25CI6/0gpRLRepmPpdUG0ri6CalKyCxSIpjFC9d/5a8eSChrOKSjWkIJZqh43X7xBXdKs5no1ocAxiQMrMmTf0GZ7r2UW/33nIWWRM1Pw1w+Q2lJiRlSSFAY5eQsT9+O1zrZ1ZCG+vceVmiuw='
+
+
+
+
 ================================================
 
 

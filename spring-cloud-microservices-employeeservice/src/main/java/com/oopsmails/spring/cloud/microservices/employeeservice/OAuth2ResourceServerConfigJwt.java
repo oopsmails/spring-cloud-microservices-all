@@ -48,6 +48,9 @@ public class OAuth2ResourceServerConfigJwt extends ResourceServerConfigurerAdapt
                 .antMatchers(HttpMethod.POST, "/**")
                 .access("#oauth2.hasScope('write')")
 
+                .antMatchers(HttpMethod.GET, "/**")
+                .access("#oauth2.hasScope('read')")
+
                 .antMatchers("/abc").hasRole("ADMIN"); // testing
 
 //			.anyRequest().permitAll();
