@@ -83,6 +83,7 @@ Solution: resolved by encoding password in WebSecurityConfig:globalUserDetails(f
 
 Note: both "secret" and user "password" should be BCrypt-ed
 $2a$10$1XqtAJZ9EXiuCCK2gy6gTuUEyYFsB97g5op1AXxRHQibf2mNe4x0i
+Use SpringCloudMicroservicesAuthApplicationTest to get BCrypt-ed password.
 
 ==> NO /uaa below for 7777, because calling from inside
 curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:7777/oauth/token
@@ -482,9 +483,25 @@ curl -X POST \
 
 
 ================================================
+20190321:
+
+**Front end, need to run: npm run start, in order to pick up proxy.conf.json**
+Should see this in terminal console:
+Proxy created: /employee  ->  http://localhost:9999
+
+Update to Angular 7,
+
+ng update @angular/cli --migrate-only --from=1.7.3
+
+spring-cloud-microservices-employeeservice: pom.xml, updated. 
+
+
 
 
 ================================================
+
+
+
 
 ================================================
 

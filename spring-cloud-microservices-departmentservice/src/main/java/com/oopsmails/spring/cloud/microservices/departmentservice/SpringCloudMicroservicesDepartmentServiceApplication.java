@@ -1,4 +1,4 @@
-package com.oopsmails.spring.cloud.microservices;
+package com.oopsmails.spring.cloud.microservices.departmentservice;
 
 import com.oopsmails.spring.cloud.microservices.departmentservice.model.Department;
 import com.oopsmails.spring.cloud.microservices.departmentservice.repository.DepartmentRepository;

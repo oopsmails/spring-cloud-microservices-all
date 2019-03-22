@@ -15,8 +15,7 @@ public class SpringCloudMicroservicesAuthApplicationTest {
         String toBeEncodedStr = "my_secret";
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String result = bCryptPasswordEncoder.encode(toBeEncodedStr);
-        System.out.println(result);
+        System.out.println("+++++++++++++++++++++++ Encoded: " + toBeEncodedStr + " as: " + result);
         assertTrue(result != null);
     }
-
 }
