@@ -32,7 +32,7 @@ export class AppService {
     this.oauthService.initImplicitFlow();
   }
 
-  getResource(resourceUrl): Observable<Array<Employee>> {
+  getResource(resourceUrl): Observable<any> {
     const headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
       'Authorization': 'Bearer ' + this.oauthService.getAccessToken()

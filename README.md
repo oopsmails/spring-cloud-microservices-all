@@ -489,11 +489,72 @@ curl -X POST \
 Should see this in terminal console:
 Proxy created: /employee  ->  http://localhost:9999
 
-Update to Angular 7,
+**Update to Angular 7,**
+
+
+install nvm4win, v1.1.7,
+
+>nvm list available
+
+>nvm install 10.15.3
+
+>nvm use 10.15.3
+
+>nvm list
+
+  * 10.15.3 (Currently using 64-bit executable)
+    7.9.0
+    6.10.1
+    6.9.1
+
+>npm -v
+6.4.1
+
+>node -v
+v10.15.3
+
+------
+npm uninstall -g angular-cli
+
+npm install -g @angular/cli@latest
+
+If your version is still old, then try the following command.
+ng update @angular/cli
+
+
+Now, check your Angular CLI version using the following command.
+
+ng --version
+-------
+
+>npm uninstall -g angular-cli
+up to date in 0.035s
+
+>ng -v
+'ng' is not recognized as an internal or external command,
+operable program or batch file.
+
+>npm install -g @angular/cli@latest
+C:\nodejs\ng -> C:\nodejs\node_modules\@angular\cli\bin\ng
+.........
++ @angular/cli@7.3.6
+added 295 packages from 180 contributors in 29.999s
+
+
+**in VS Code**
 
 ng update @angular/cli --migrate-only --from=1.7.3
 
-spring-cloud-microservices-employeeservice: pom.xml, updated. 
+npm install
+
+npm run start
+
+
+
+
+
+
+
 
 
 
