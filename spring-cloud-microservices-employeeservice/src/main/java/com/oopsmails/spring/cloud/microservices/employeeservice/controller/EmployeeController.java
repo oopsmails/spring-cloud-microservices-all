@@ -2,14 +2,15 @@ package com.oopsmails.spring.cloud.microservices.employeeservice.controller;
 
 import com.oopsmails.spring.cloud.microservices.employeeservice.model.Employee;
 import com.oopsmails.spring.cloud.microservices.employeeservice.repository.EmployeeRepository;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
+//@RequestMapping("/employee-api")
 public class EmployeeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
@@ -18,10 +19,17 @@ public class EmployeeController {
     EmployeeRepository repository;
 
     @PostMapping("/")
+    @PreAuthorize("#oauth2.hasScope('write') and #oauth2.hasScope('read')")
     public Employee add(@RequestBody Employee employee) {
         LOGGER.info("Employee add: {}", employee);
         return repository.add(employee);
     }
+
+//    @GetMapping("/employee/{id}") // add for testing
+//    public Employee findByIdTest(@PathVariable("id") Long id) {
+//        LOGGER.info("Employee find: id={}", id);
+//        return repository.findById(id);
+//    }
 
     @GetMapping("/{id}")
     public Employee findById(@PathVariable("id") Long id) {
@@ -30,6 +38,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("#oauth2.hasScope('read')")
     public List<Employee> findAll() {
         LOGGER.info("Employee find");
         return repository.findAll();

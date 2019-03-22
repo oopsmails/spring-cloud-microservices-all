@@ -1,4 +1,4 @@
-package com.oopsmails.spring.cloud.microservices;
+package com.oopsmails.spring.cloud.microservices.departmentservice;
 
 import com.oopsmails.spring.cloud.microservices.departmentservice.model.Department;
 import com.oopsmails.spring.cloud.microservices.departmentservice.repository.DepartmentRepository;
@@ -31,7 +31,7 @@ public class SpringCloudMicroservicesDepartmentServiceApplication {
                 .apis(RequestHandlerSelectors.basePackage("com.oopsmails.spring.cloud.microservices.departmentservice.controller"))
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(new ApiInfoBuilder().version("1.0").title("Employee API").description("Documentation Employee API v1.0").build());
+                .apiInfo(new ApiInfoBuilder().version("1.0").title("Department API").description("Documentation Department API v1.0").build());
     }
 
     @Bean

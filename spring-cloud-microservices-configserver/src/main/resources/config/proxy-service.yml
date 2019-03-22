@@ -7,17 +7,22 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 
 logging:
-  pattern: 
+  pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
-              
+
 zuul:
-  routes:
-    department:
-      path: /department/**
-      serviceId: department-service
-    employee:
-      path: /employee/**
-      serviceId: employee-service
-    organization:
-      path: /organization/**
-      serviceId: organization-service
+  host:
+    socket-timeout-millis: 60000
+  add-host-header: true
+  add-proxy-headers: true
+  ignored-services: "*"
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+hystrix:
+    command:
+        default:
+            execution:
+                timeout:
+                    enabled: false

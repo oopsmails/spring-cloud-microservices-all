@@ -1,0 +1,11 @@
+server:
+  port: 18080
+  servlet:
+    context-path: /uaa
+
+spring:
+  application:
+    name: auth-server
+  cloud:
+    config:
+      uri: http://localhost:8888
