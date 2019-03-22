@@ -4,3 +4,39 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+
+zuul:
+  routes:
+    auth:
+      path: /uaa/**
+      sensitiveHeaders:
+      serviceId: auth-server
+      stripPrefix: false
+    department:
+      path: /department/**
+      serviceId: department-service
+    employee:
+      path: /employee/**
+      sensitiveHeaders:
+      serviceId: employee-service
+      stripPrefix: true
+    organization:
+      path: /organization/**
+      serviceId: organization-service
+
+    api:
+      path: /api/**
+      service-id: resource
+      sensitiveHeaders:
+      strip-prefix: false
+#    uaa:
+#      path: /uaa/**
+#      service-id: uaa
+#      sensitiveHeaders:
+#      strip-prefix: false
+    client:
+      path: /client/**
+      service-id: client
+      sensitiveHeaders:
+      strip-prefix: false
+
