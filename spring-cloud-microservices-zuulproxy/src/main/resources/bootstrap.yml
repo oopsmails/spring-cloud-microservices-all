@@ -14,7 +14,9 @@ zuul:
       stripPrefix: false
     department:
       path: /department/**
+      sensitiveHeaders:
       serviceId: department-service
+      stripPrefix: true
     employee:
       path: /employee/**
       sensitiveHeaders:
@@ -22,7 +24,9 @@ zuul:
       stripPrefix: true
     organization:
       path: /organization/**
+      sensitiveHeaders:
       serviceId: organization-service
+      stripPrefix: true
 
     api:
       path: /api/**

@@ -6,6 +6,7 @@ import com.oopsmails.spring.cloud.microservices.departmentservice.repository.Dep
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +18,12 @@ public class DepartmentController {
 
     @Autowired
     DepartmentRepository repository;
+
     @Autowired
     EmployeeClient employeeClient;
 
     @PostMapping("/")
+    @PreAuthorize("#oauth2.hasScope('write') and #oauth2.hasScope('read')")
     public Department add(@RequestBody Department department) {
         LOGGER.info("Department add: {}", department);
         return repository.add(department);
@@ -33,8 +36,9 @@ public class DepartmentController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("#oauth2.hasScope('read')")
     public List<Department> findAll() {
-        LOGGER.info("Department find");
+        LOGGER.info("+++++++++++++++++++++++++++++ Department find");
         return repository.findAll();
     }
 
@@ -45,6 +49,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/organization/{organizationId}/with-employees")
+    @PreAuthorize("#oauth2.hasScope('read')")
     public List<Department> findByOrganizationWithEmployees(@PathVariable("organizationId") Long organizationId) {
         LOGGER.info("Department find: organizationId={}", organizationId);
         List<Department> departments = repository.findByOrganization(organizationId);

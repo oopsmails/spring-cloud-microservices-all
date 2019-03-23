@@ -9,3 +9,27 @@ eureka:
 logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+
+auth-server-url: http://localhost:9999/uaa
+
+security:
+  oauth2:
+    client:
+      client-id: clientCredentialsClient
+      client-secret: my_secret
+      access-token-uri: ${auth-server-url}/oauth/token
+      user-authorization-uri: ${auth-server-url}/oauth/authorize
+      scope: read, write, messagesCtrl
+    resource:
+      jwt:
+        key-uri: ${auth-server-url}/oauth/token_key
+        key-value: holder
+      user-info-uri: ${auth-server-url}/userinfo
+
+spring:
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+
+
+

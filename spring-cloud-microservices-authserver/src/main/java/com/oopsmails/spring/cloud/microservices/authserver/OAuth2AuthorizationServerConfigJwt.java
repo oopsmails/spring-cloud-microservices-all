@@ -42,7 +42,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
         // @formatter:off
         clients.inMemory()
                 .withClient("sampleClientId")
-                .authorizedGrantTypes("implicit")
+                .authorizedGrantTypes("implicit", "client_credentials")
                 .scopes("read", "write", "foo", "bar")
                 .autoApprove(false)
                 .accessTokenValiditySeconds(3600)
@@ -50,7 +50,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .and()
                 .withClient("fooClientIdPassword")
                 .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
                 .scopes("foo", "read", "write")
                 .accessTokenValiditySeconds(3600)
                 // 1 hour
@@ -60,7 +60,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .and()
                 .withClient("barClientIdPassword")
                 .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token", "client_credentials")
                 .scopes("bar", "read", "write")
                 .accessTokenValiditySeconds(3600)
                 // 1 hour
@@ -68,7 +68,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
 
                 .and()
                 .withClient("demo")
-                .authorizedGrantTypes("implicit")
+                .authorizedGrantTypes("implicit", "client_credentials")
                 .scopes("read", "write", "foo", "bar")
                 .autoApprove(true)
                 .accessTokenValiditySeconds(3600)
@@ -76,7 +76,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .and()
                 .withClient("authorizationCodeClient")
                 .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
-                .authorizedGrantTypes("authorization_code")
+                .authorizedGrantTypes("authorization_code", "client_credentials")
                 .scopes("messagesCtrl", "read", "write")
                 .autoApprove(true) // autoApprove is set to true so that we’re not redirected and promoted to manually approve any scopes.
 
@@ -90,7 +90,7 @@ public class OAuth2AuthorizationServerConfigJwt extends AuthorizationServerConfi
                 .and()
                 .withClient("demops")
                 .secret("$2a$10$2cH8fiWcnJhNyXbFnpEsE.o8opOLMhWLd7J61JUnuroEUOSBh/JLK") // my_secret
-                .authorizedGrantTypes("implicit", "password", "authorization_code", "refresh_token")
+                .authorizedGrantTypes("implicit", "password", "authorization_code", "refresh_token", "client_credentials")
                 .scopes("messagesCtrl", "read", "write")
                 .autoApprove(true)
                 .accessTokenValiditySeconds(7200)

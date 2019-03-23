@@ -1,12 +1,12 @@
-package com.oopsmails.spring.cloud.microservices.employeeservice;
+package com.oopsmails.spring.cloud.microservices.departmentservice;
 
-import com.oopsmails.spring.cloud.microservices.employeeservice.filter.OAuth2ValidationFilter;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpMethod;
@@ -29,6 +29,7 @@ import java.io.IOException;
 @EnableResourceServer
 @EnableWebSecurity
 //@Order(SecurityProperties.BASIC_AUTH_ORDER)
+//@Order(1)
 public class OAuth2ResourceServerConfigJwt extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -43,10 +44,10 @@ public class OAuth2ResourceServerConfigJwt extends ResourceServerConfigurerAdapt
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.GET, "/employee/v2/**")
+                .antMatchers(HttpMethod.GET, "/department/v2/**")
                 .permitAll()
 
-                .antMatchers(HttpMethod.GET, "/employee/**")
+                .antMatchers(HttpMethod.GET, "/department/**")
                 .access("#oauth2.hasScope('read')")
 
                 .antMatchers(HttpMethod.POST, "/**")
@@ -87,12 +88,12 @@ public class OAuth2ResourceServerConfigJwt extends ResourceServerConfigurerAdapt
 
     @Bean
     public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtTokenEnhancer());
+        return new JwtTokenStore(customJwtTokenEnhancer());
     }
 
     @Bean
     @Primary
-    public JwtAccessTokenConverter jwtTokenEnhancer() {
+    public JwtAccessTokenConverter customJwtTokenEnhancer() {
         final JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setAccessTokenConverter(customAccessTokenConverter);
 

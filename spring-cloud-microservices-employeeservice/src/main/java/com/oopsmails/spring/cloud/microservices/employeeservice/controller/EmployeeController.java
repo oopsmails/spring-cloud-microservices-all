@@ -40,7 +40,7 @@ public class EmployeeController {
     @GetMapping("/")
     @PreAuthorize("#oauth2.hasScope('read')")
     public List<Employee> findAll() {
-        LOGGER.info("Employee find");
+        LOGGER.info("++++++++++++++++++++++++ Employee find");
         return repository.findAll();
     }
 
