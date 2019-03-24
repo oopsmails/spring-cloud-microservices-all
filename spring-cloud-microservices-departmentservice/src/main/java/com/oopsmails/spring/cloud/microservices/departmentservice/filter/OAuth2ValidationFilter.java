@@ -1,10 +1,10 @@
-package com.oopsmails.spring.cloud.microservices.employeeservice.filter;
+package com.oopsmails.spring.cloud.microservices.departmentservice.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -12,12 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 @Order(FilterOrder.Constants.FILTER_OAUTH2_VALIDATION_VALUE)
 @Slf4j
 public class OAuth2ValidationFilter extends OncePerRequestFilter {
-
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
@@ -33,13 +33,18 @@ public class OAuth2ValidationFilter extends OncePerRequestFilter {
         }
 
         try {
-            String token = getJwtToken(primaryTokenValue);
-            String userId = getUserIdFromToken(token);
+            // Authentication object should already be in SecurityContextHolder
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails) authentication.getDetails();
+            HashMap<String, Object> decodedDetails = (LinkedHashMap) oAuth2AuthenticationDetails.getDecodedDetails();
 
-            httpServletRequest.setAttribute("userId", userId);
             httpServletRequest.setAttribute("authorization", primaryTokenValue);
-
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userId, null));
+            httpServletRequest.setAttribute("token", oAuth2AuthenticationDetails.getTokenValue());
+            httpServletRequest.setAttribute("tokenType", oAuth2AuthenticationDetails.getTokenType());
+            httpServletRequest.setAttribute("sessionId", oAuth2AuthenticationDetails.getSessionId());
+            httpServletRequest.setAttribute("remoteAddress", oAuth2AuthenticationDetails.getRemoteAddress());
+            httpServletRequest.setAttribute("userId", decodedDetails.get("client_id"));
+            httpServletRequest.setAttribute("authorization", primaryTokenValue);
         } catch (Exception e) {
             logger.error(e);
             this.handleErrorResponse(httpServletResponse, 401, "ERR-TokenNotValid?");
@@ -55,23 +60,4 @@ public class OAuth2ValidationFilter extends OncePerRequestFilter {
         logger.error(responseCode);
     }
 
-    protected String getJwtToken(String authHeader) {
-        String jwtToken = null;
-        if (authHeader != null) {
-            String[] parts = authHeader.split(" ");
-            if (parts.length == 2) {
-                String scheme = parts[0];
-                String credentials = parts[1];
-                Pattern pattern = Pattern.compile("^Bearer$", 2);
-                if (pattern.matcher(scheme).matches()) {
-                    jwtToken = credentials;
-                }
-            }
-        }
-        return jwtToken;
-    }
-
-    protected String getUserIdFromToken(String token) {
-        return "hackUserId";
-    }
 }

@@ -125,6 +125,22 @@ routes:
 
 --
 
+**20190322: **
+
+Authorization header is filtered out by Zuul server,
+
+Solution: bootstrap.yml of Zuul server,
+
+sensitiveHeaders: Cookie,Set-Cookie
+
+routes:
+    auth:
+      path: /uaa/**
+      sensitiveHeaders: Cookie,Set-Cookie <-------- adding this 
+      serviceId: auth-server
+      stripPrefix: true
+
+
 sensitiveHeaders: Cookie,Set-Cookie,Authorization
 This is default and is a black list, so, overwrite it to allow "Authorization" passed to auth-server!
 
