@@ -438,8 +438,10 @@ curl -X POST --user 'authorizationCodeClient:my_secret' -d 'grant_type=authoriza
 
 ----> Password for logging in with a username and password
 
-curl -X POST --user 'demops:password' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
+--> ok
+curl -X POST --user 'demops:my_secret' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
 
+--> not prompt for secret??
 curl -X POST --user 'demops' -d 'grant_type=password&username=user&password=password' http://localhost:9999/uaa/oauth/token
 
 ----> Client credentials for application access
@@ -456,6 +458,36 @@ curl -X POST --user 'clientCredentialsClient:my_secret' -d 'grant_type=client_cr
 Authorization Code grant with no secret.
 
 
+And the application.yml:
+
+server:
+    port: 8082
+    servlet:
+        context-path: /ui
+    session:
+      cookie:
+        name: UISESSION
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      clientId: SampleClientId
+      clientSecret: secret
+      accessTokenUri: http://localhost:8081/auth/oauth/token
+      userAuthorizationUri: http://localhost:8081/auth/oauth/authorize
+    resource:
+      userInfoUri: http://localhost:8081/auth/user/me
+spring:
+  thymeleaf:
+    cache: false
+A few quick notes:
+
+
+**we disabled the default Basic Authentication
+accessTokenUri is the URI to obtain the Access Tokens
+userAuthorizationUri is the authorization URI that users will be redirected to
+userInfoUri the URI of user endpoint to obtain current user details**
 
 
 
@@ -577,6 +609,13 @@ npm run start
 
 ================================================
 
+**implicit flow**
+
+Seeing login page from "http://localhost:9999/uaa/login" first.
+
+**password flow**
+
+Loading login page from "http://localhost:4206/login".
 
 
 

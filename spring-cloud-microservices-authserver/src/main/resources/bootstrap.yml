@@ -9,3 +9,12 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+
+
+
+logging:
+  pattern:
+    console: "[%d{MM-dd-yyyy HH:mm:ss,SSS zZ}] [%t] [category=%.50c{3}; prio=%-4p CorrelationId=%X{CorrelationId};] [UserId=%X{UserId}; ] msg=%m%n"
+  level:
+    org.springframework.security: DEBUG
+    com.oopsmails.spring.cloud.microservices.authserver.filter.HttpLoggingFilter: DEBUG
