@@ -14,7 +14,7 @@ public class FilterConfig {
         FilterRegistrationBean<OAuth2ValidationFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(new OAuth2ValidationFilter());
-        registrationBean.addUrlPatterns("/*", "/employee/*");
+        registrationBean.addUrlPatterns("/*", "/department/*");
         registrationBean.setName("oAuthValidationFilter");
         return registrationBean;
     }
@@ -24,7 +24,7 @@ public class FilterConfig {
         FilterRegistrationBean<LogContextInitializingFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(new LogContextInitializingFilter());
-        registrationBean.addUrlPatterns("/*", "/employee/*");
+        registrationBean.addUrlPatterns("/*", "/department/*");
         registrationBean.setName("logContextInitializingFilter");
         return registrationBean;
     }
@@ -35,7 +35,7 @@ public class FilterConfig {
         FilterRegistrationBean<HttpLoggingFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(httpLoggingFilter);
-        registrationBean.addUrlPatterns("/*", "/employee/*");
+        registrationBean.addUrlPatterns("/*", "/department/*");
         registrationBean.setName("httpLoggingFilter");
         return registrationBean;
     }

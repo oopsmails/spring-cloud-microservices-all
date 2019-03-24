@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="log.root.dir">./logs</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="SystemAppServerAppender" fileName="${sys:log.root.dir}/SystemAppServer-${hostName}.log"
+                     filePattern="${sys:log.root.dir}/SystemAppServer-${hostName}-%d{yyyy-MM-dd-HH}-%i.log">
+            <PatternLayout
+                    pattern="[%d{MM-dd-yyyy HH:mm:ss,SSS zZ}] [%t] [category=&quot;%.50c{3}&quot;; prio=&quot;%-4p&quot; CorrelationId=&quot;%X{CorrelationId}&quot;;] [UserId=&quot;%X{UserId}&quot;; ] msg=%m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="30 MB"/>
+            </Policies>
+            <filters>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </filters>
+            <DefaultRolloverStrategy max="10000"/>
+        </RollingFile>
+
+        <RollingFile name="SystemAppServerAppender-Error"
+                     fileName="${sys:log.root.dir}/SystemAppServerERROR-${hostName}.log"
+                     filePattern="${sys:log.root.dir}/SystemAppServerERROR-${hostName}-%d{yyyy-MM-dd-HH}-%i.log">
+            <PatternLayout
+                    pattern="[%d{MM-dd-yyyy HH:mm:ss,SSS zZ}] [%-5p] [%X{UserId}] [%t] [%.65c{4}]  [CorrelationId=&quot;%X{CorrelationId}&quot;;] [UserId=&quot;%X{UserId}&quot;; ] %n %m%ex %n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="30 MB"/>
+            </Policies>
+            <filters>
+                <MarkerFilter marker="performance" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="fatal" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </filters>
+            <DefaultRolloverStrategy max="10000"/>
+        </RollingFile>
+
+        <Console name="STDOUT">
+            <PatternLayout
+                    pattern="[%d{MM-dd-yyyy HH:mm:ss,SSS zZ}] [%t] [category=&quot;%.50c{3}&quot;; prio=&quot;%-4p&quot; CorrelationId=&quot;%X{CorrelationId}&quot;;] [UserId=&quot;%X{UserId}&quot;; ] msg=%m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.oopsmails.spring.cloud.microservices.employeeservice" level="info" additivity="false">
+            <AppenderRef ref="SystemAppServerAppender-Error" level="error"/>
+            <AppenderRef ref="SystemAppServerAppender" level="info"/>
+            <AppenderRef ref="STDOUT" level="info"/>
+        </Logger>
+
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="SystemAppServerAppender" level="info"/>
+            <AppenderRef ref="STDOUT" level="info"/>
+        </Logger>
+
+        <Logger name="org.springframework.web.servlet" level="debug" additivity="false">
+            <AppenderRef ref="SystemAppServerAppender" level="debug"/>
+            <AppenderRef ref="STDOUT" level="debug"/>
+        </Logger>
+
+        <Logger name="org.springframework.security" level="debug" additivity="false">
+            <AppenderRef ref="SystemAppServerAppender" level="debug"/>
+            <AppenderRef ref="STDOUT" level="debug"/>
+        </Logger>
+
+        <Logger name="com.oopsmails.spring.cloud.microservices.employeeservice.filter.HttpLoggingFilter" level="debug" additivity="false">
+            <AppenderRef ref="SystemAppServerAppender" level="debug"/>
+            <AppenderRef ref="STDOUT" level="debug"/>
+        </Logger>
+
+        <Root level="error">
+            <AppenderRef ref="SystemAppServerAppender-Error" level="error"/>
+            <AppenderRef ref="STDOUT" level="debug"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService, AuthConfig } from 'angular-oauth2-oidc';
 import { Cookie } from 'ng2-cookies';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -14,11 +14,32 @@ export class Employee {
     public name: string) { }
 }
 
+// export const authConfig: AuthConfig = {
+//   issuer: '',
+//   redirectUri: window.location.origin + '/home',
+//   silentRefreshRedirectUri: window.location.origin + '/assets/silent-refresh.html',
+//   clientId: '',
+//   dummyClientSecret: '',
+//   scope: '',
+//   strictDiscoveryDocumentValidation: false,
+//   oidc: false
+// }
+
 @Injectable()
 export class AppService {
   private authServer = 'http://localhost:9999/uaa';
   constructor(
     private _router: Router, private _http: HttpClient, private oauthService: OAuthService) {
+
+      // const authConfig = new AuthConfig();
+      // authConfig.issuer = this.authServer + '/oauth/token';
+      // authConfig.clientId = 'demops';
+      // authConfig.redirectUri = 'http://localhost:4205/';
+      // authConfig.scope = 'read write';
+      // authConfig.responseType = 'token';
+      // this.oauthService.configure(authConfig);
+      // this.oauthService.setStorage(sessionStorage);
+
     this.oauthService.loginUrl = this.authServer + '/oauth/authorize';
     this.oauthService.redirectUri = 'http://localhost:4205/';
     this.oauthService.clientId = 'demops';

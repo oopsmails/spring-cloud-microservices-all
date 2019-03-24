@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 
 import { AppComponent } from './app.component';
 import { ListingComponent } from './listing.component';
@@ -23,7 +23,9 @@ import { HomeComponent } from './home.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent }])
   ],
-  providers: [],
+  providers: [
+    { provide: OAuthStorage, useValue: localStorage },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

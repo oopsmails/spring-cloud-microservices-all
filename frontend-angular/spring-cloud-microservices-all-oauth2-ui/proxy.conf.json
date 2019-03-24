@@ -1,0 +1,12 @@
+{
+    "/employee/*": {
+        "target": "http://localhost:9999",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/uaa/*": {
+        "target": "http://localhost:9999",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
