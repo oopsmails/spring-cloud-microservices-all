@@ -32,6 +32,7 @@ discovery-service
 employee-service
 8090 --> 18084, 18085
 spring.profiles.active=instance2
+--> add this JVM option: -Dspring.profiles.active=instance2
 
 gateway-service
 8060 --> 9998
