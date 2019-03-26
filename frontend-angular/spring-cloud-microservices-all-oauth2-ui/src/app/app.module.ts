@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ListUserComponent } from './list-user/list-user.component';
-import { ListingComponent } from "./list-employee/listing.component";
+import { ListEmployeeComponent } from "./list-employee/list-employee.component";
 import {ApiService} from "./core/api.service";
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -19,7 +19,7 @@ import {routing} from "./app.routing";
     AddUserComponent,
     EditUserComponent,
     ListUserComponent,
-    ListingComponent
+    ListEmployeeComponent
   ],
   imports: [
     BrowserModule,
