@@ -8,4 +8,4 @@ eureka:
 
 logging:
   pattern: 
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+    console: "[%d{MM-dd-yyyy HH:mm:ss,SSS zZ}] [%t] [category=%.50c{3}; prio=%-4p CorrelationId=%X{CorrelationId};] [UserId=%X{UserId}; ] msg=%m%n"
