@@ -54,6 +54,48 @@ http://localhost:9999/employee
 
 http://localhost:9999/organization/1/with-departments-and-employees
 
+================================================
+
+====> Eureka not deregister instance! 
+
+employee-service
+spring.profiles.active=instance2
+--> after started instance2, then round robin when calling http://localhost:9999/employee
+--> but, if stopped instance2, then always failing once for every two calls because one of two instances is DOWN.
+--> Eureka still show the status of the stopped one as UP.
+--> Need more configuration!
+
+https://stackoverflow.com/questions/32616329/eureka-never-unregisters-a-service:
+
+```
+I made service de-registration work by setting the below values
+
+Eureka server application.yml:
+
+eureka:
+  server:
+    enableSelfPreservation: false
+
+
+Service application.yml:
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+The full example is here https://github.com/ExampleDriven/spring-cloud-eureka-example
+
+And more, add following dependency in the pom.xml of Eureka server
+https://github.com/spring-cloud/spring-cloud-netflix/issues/2696
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+```
+
+--> even like this, always, the first call is good, the second call will fail and all calls after will be ok.
 
 
 
