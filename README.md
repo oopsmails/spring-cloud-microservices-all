@@ -76,6 +76,8 @@ eureka:
   server:
     enableSelfPreservation: false
 
+--> later eureka page, seeing "THE SELF PRESERVATION MODE IS TURNED OFF. THIS MAY NOT PROTECT INSTANCE EXPIRY IN CASE OF NETWORK/OTHER PROBLEMS."
+
 
 Service application.yml:
 
@@ -678,6 +680,5 @@ Loading login page from "http://localhost:4206/login".
 https://piotrminkowski.wordpress.com/2018/04/26/quick-guide-to-microservices-with-spring-boot-2-0-eureka-and-spring-cloud/comment-page-1/#comment-574
 
 https://github.com/piomin/sample-spring-microservices-new
-
 
 

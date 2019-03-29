@@ -9,6 +9,10 @@ eureka:
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud.netflix: DEBUG
+    com.oopsmails.spring.cloud.microservices.zuulproxy.filter.HttpLoggingFilter: DEBUG
 
 zuul:
   host:
@@ -16,6 +20,46 @@ zuul:
   add-host-header: true
   add-proxy-headers: true
   ignored-services: "*"
+  debug:
+    request: true
+    include-debug-header: true
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: *
+
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+
+# TODO: check if this will work
+
+#hystrix:
+#  command:
+#    myusers-service:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: ...
+
+#myusers-service:
+#  ribbon:
+#    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+#    listOfServers: http://example1.com,http://example2.com
+#    ConnectTimeout: 1000
+#    ReadTimeout: 3000
+#    MaxTotalHttpConnections: 500
+#    MaxConnectionsPerHost: 100
 
 
 # The following is moved into bootstrap.yml of Zuul server
@@ -44,12 +88,4 @@ zuul:
 
 
 
-ribbon:
-  ConnectTimeout: 60000
-  ReadTimeout: 600000
-hystrix:
-    command:
-        default:
-            execution:
-                timeout:
-                    enabled: false
+
