@@ -671,6 +671,24 @@ Loading login page from "http://localhost:4206/login".
 
 ================================================
 
+====> Maven problem: 
+```
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.7.0:compile (default-compile) on project spring-cloud-microservices-departmentservice: Fatal error compiling: java.lang.ExceptionInInitializerError: com.sun.tools.javac.code.TypeTags -> [Help 1]
+[ERROR]
+```
+
+Resolved by define JDK as 1.8 instead of 11 in Intellij.
+
+====> ZuulSessionConfig: 
+
+https://docs.spring.io/spring-session/docs/current-SNAPSHOT/reference/html5/
+
+@EnableHazelcastHttpSession
+@EnableSpringHttpSession
+
+Spring Data Redis, which provides the abstractions of the Spring Data platform to Redis – the popular in-memory data structure store.
+
+
 
 ================================================
 
