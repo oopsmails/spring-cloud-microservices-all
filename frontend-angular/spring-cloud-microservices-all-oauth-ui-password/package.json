@@ -27,7 +27,7 @@
     "@ngx-translate/core": "11.0.1",
     "angular-oauth2-oidc": "^3.1.4",
     "core-js": "2.6.0",
-    "highcharts": "6.2.0",
+    "highcharts": "9.0.0",
     "lunr": "2.3.5",
     "ng2-cookies": "^1.0.12",
     "rxjs": "6.3.3",
