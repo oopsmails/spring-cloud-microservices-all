@@ -1,0 +1,51 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:/config
+
+logging:
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+      org.springframework.security: DEBUG
+
+
+encrypt:
+  key-store:
+    # location: file:///C:/keystore/server.jks #using asymmetric encryption
+    location: classpath:/oopsmails-config-server.jks #using asymmetric encryption
+    password: oopsmails-storepass
+    alias: oopsmails-config-server-key
+    secret: oopsmails-keypass
+
+#encrypt:
+#  key-store:
+#    location: classpath:/server.jks #using asymmetric encryption
+#    password: letmein
+#    alias: mytestkey
+#    secret: changeme
+
+# ok:
+#encrypt:
+#  keyStore:
+#    location: classpath:server.jks
+#    password: letmein
+#    alias: mytestkey
+#    secret: changeme
+
+# ok:
+#encrypt:
+#  key-store:
+#    location: classpath:/server.jks #using asymmetric encryption
+#    password: letmein
+#    alias: mytestkey
+#    secret: changeme
+

@@ -62,7 +62,7 @@ hystrix:
 #    MaxConnectionsPerHost: 100
 
 
-# The following is moved into bootstrap.yml of Zuul server
+# The following is moved into bootstrap.yml.00 of Zuul server
 #zuul:
 #  routes:
 #    auth:

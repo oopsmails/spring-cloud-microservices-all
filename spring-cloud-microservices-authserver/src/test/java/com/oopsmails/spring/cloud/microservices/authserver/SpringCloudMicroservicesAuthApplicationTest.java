@@ -1,14 +1,10 @@
 package com.oopsmails.spring.cloud.microservices.authserver;
 
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
 public class SpringCloudMicroservicesAuthApplicationTest {
     @Test
     public void whenLoadApplication_thenSuccess() {
