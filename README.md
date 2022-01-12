@@ -1,5 +1,19 @@
 # spring-cloud-microservices
 
+## 20220112: Revisit this app
+
+- upgraded to SpringBoot 2.5.5
+- SpringCloud 2020.0.4
+- demolished zuul-server
+- using spring-gateway in future
+
+- Run app in order
+    - config-server
+    - eureka-server
+    - auth-server, gateway-server, employee-service
+    - organization-service, department-service
+
+
 ================================================
 
 com.oopsmails.spring.cloud.microservices
