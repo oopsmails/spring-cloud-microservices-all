@@ -36,6 +36,9 @@ http://localhost:8888/discovery-service/default --> working
 
 ================================================
 
+eureka-server
+
+http://localhost:8761/ <----------------- see all services
 
 department-service.yml
 8091 --> 18082
